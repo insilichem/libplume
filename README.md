@@ -8,12 +8,13 @@ It's composed of several independent graphical interfaces and commands for UCSF 
 - **Calculation setup**
 
     - **Plume MD**: Setup MD calculations with OpenMM and ommprotocol
-    - 
+
     - **Cauchian**: QM and QM/MM calculations setup
 
 - **Visualization**
 
     - **PlumeView** (formerly GAUDIView): Lighweight visualization of results coming from docking, conformational search or multiobjective optimization
+
     - **PlumeViewGL (provisional name)**: Experimental web interface to depict molecules, docking solutions and relational mapping of residues
 
     - **OrbiTraj**: A subtle modification to UCSF Chimera's MD Movie extension to allow the visualization of volumetric data along a molecular trajectory
