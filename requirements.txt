@@ -1,0 +1,11 @@
+git+https://bitbucket.org/insilichem/cauchian.git
+git+https://bitbucket.org/insilichem/gaudiview.git
+git+https://bitbucket.org/insilichem/nciplot.git
+git+https://bitbucket.org/insilichem/normalmodes.git
+git+https://bitbucket.org/insilichem/orbitraj.git
+git+https://bitbucket.org/insilichem/plipgui.git
+git+https://bitbucket.org/insilichem/popmusicgui.git
+git+https://bitbucket.org/insilichem/propkagui.git
+git+https://bitbucket.org/insilichem/selectionwidget.git
+git+https://bitbucket.org/insilichem/subalign.git
+git+https://github.com/insilichem/dummyatoms.git
