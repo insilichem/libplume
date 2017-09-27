@@ -9,3 +9,4 @@ git+https://bitbucket.org/insilichem/popmusicgui.git
 git+https://bitbucket.org/insilichem/propkagui.git
 git+https://bitbucket.org/insilichem/selectionwidget.git
 git+https://bitbucket.org/insilichem/subalign.git
+git+https://bitbucket.org/insilichem/snfg.git
