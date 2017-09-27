@@ -13,6 +13,8 @@ It's composed of several independent graphical interfaces and commands for UCSF 
 
 - **Visualization**
 
+    - **3D-SNFG**: Enable easy visualization of saccharydic residues
+
     - **PlumeView** (formerly GAUDIView): Lighweight visualization of results coming from docking, conformational search or multiobjective optimization
 
     - **PlumeViewGL (provisional name)**: Experimental web interface to depict molecules, docking solutions and relational mapping of residues

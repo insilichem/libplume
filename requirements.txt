@@ -7,6 +7,7 @@ git+https://bitbucket.org/insilichem/orbitraj.git
 git+https://bitbucket.org/insilichem/plipgui.git
 git+https://bitbucket.org/insilichem/popmusicgui.git
 git+https://bitbucket.org/insilichem/propkagui.git
+git+https://bitbucket.org/insilichem/plume-suite.git
 git+https://bitbucket.org/insilichem/selectionwidget.git
 git+https://bitbucket.org/insilichem/subalign.git
 git+https://bitbucket.org/insilichem/snfg.git
