@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-# Get used to importing this in your Py27 projects!
+
 from __future__ import print_function, division
 # Python stdlib
 import Tkinter as tk
@@ -16,6 +16,7 @@ from chimera.baseDialog import ModelessDialog
 from chimera.widgets import MoleculeScrolledListBox
 
 
+CHIMERA_BG = chimera.tkgui.app.cget('bg')
 STYLES = {
     tk.Entry: {
         'background': 'white',
@@ -23,13 +24,26 @@ STYLES = {
         'highlightthickness': 0,
         'insertwidth': 1,
     },
+    Pmw.EntryField: {
+        'entry_background': 'white',
+        'entry_borderwidth': 1,
+        'entry_highlightthickness': 0,
+        'entry_insertwidth': 1,
+    },
     tk.Button: {
         'borderwidth': 1,
         'highlightthickness': 0,
     },
     tk.Checkbutton: {
-        'highlightbackground': chimera.tkgui.app.cget('bg'),
-        'activebackground': chimera.tkgui.app.cget('bg'),
+        'highlightbackground': CHIMERA_BG,
+        'activebackground': CHIMERA_BG,
+    },
+    tk.Radiobutton: {
+        'highlightbackground': CHIMERA_BG,
+        'activebackground': CHIMERA_BG,
+    },
+    tk.OptionMenu: {
+        'borderwidth': 1,
     },
     Pmw.OptionMenu: {
         'menubutton_borderwidth': 1,
@@ -65,8 +79,22 @@ STYLES = {
         'listbox_borderwidth': 1,
         'listbox_background': 'white',
         'listbox_highlightthickness': 0,
+    },
+    tk.Scale: {
+        'borderwidth': 1,
+        'highlightthickness': 0,
+        'sliderrelief': 'flat'
+    },
+    tk.Button: {
+        'borderwidth': 1,
+        'highlightthickness': 0,
+    },
+    tk.Checkbutton: {
+        'highlightbackground': CHIMERA_BG,
+        'activebackground': CHIMERA_BG,
     }
 }
+
 
 class PlumeBaseDialog(ModelessDialog):
     
@@ -75,15 +103,16 @@ class PlumeBaseDialog(ModelessDialog):
     statusPosition = 'left'
     help = 'https://www.insilichem.com'
     version = None
-    version_url = None    
-
+    version_url = None
+    overMaster = True
+    
     def __init__(self, parent, with_logo=True, *args, **kwargs):
         self.parent = parent
         self.with_logo = with_logo
         # Fire up
-        ModelessDialog.__init__(self, *args, **kwargs)
         if not chimera.nogui:  # avoid useless errors during development
             chimera.extension.manager.registerInstance(self)
+        ModelessDialog.__init__(self, *args, **kwargs)
         # Fix styles
         self._fix_styles(*self.buttonWidgets.values())
         self._hidden_files_fix()
@@ -128,6 +157,7 @@ class PlumeBaseDialog(ModelessDialog):
     
     def fillInUI(self, parent):
         # Create main window
+        parent.pack(expand=True, fill='both')
         self.canvas = tk.Frame(parent)
         self.canvas.pack(expand=True, fill='both')
 
@@ -143,12 +173,8 @@ class PlumeBaseDialog(ModelessDialog):
         raise NotImplementedError
     
     def Close(self):
-        """
-        Default! Triggered action if you click on the Close button
-        """
-        ModelessDialog.Close(self)
         chimera.extension.manager.deregisterInstance(self)
-        self.destroy()
+        ModelessDialog.Close(self)
     Quit = Close
 
     def auto_grid(self, parent, grid, resize_columns=(1,), label_sep=':', **options):
