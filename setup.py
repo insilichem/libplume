@@ -20,7 +20,7 @@ def read(*filenames, **kwargs):
 long_description = read('README.md')
 
 setup(
-    name='plumebase',
+    name='libplume',
     version='0.0.1',
     url='https://github.com/insilichem',
     author='Jaime Rodríguez-Guerra',
