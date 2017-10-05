@@ -5,6 +5,7 @@
 from __future__ import print_function, division
 # Python stdlib
 import Tkinter as tk
+import Tix
 import webbrowser as web
 import json
 from urllib2 import urlopen, HTTPError
@@ -15,6 +16,9 @@ import chimera
 from chimera.baseDialog import ModelessDialog
 from chimera.widgets import MoleculeScrolledListBox
 
+# Fix strange bug that can happen 
+# with newly created conda environments
+Tix._default_root = tk._default_root
 
 CHIMERA_BG = chimera.tkgui.app.cget('bg')
 STYLES = {
@@ -106,13 +110,14 @@ class PlumeBaseDialog(ModelessDialog):
     version_url = None
     overMaster = True
     
-    def __init__(self, parent, with_logo=True, *args, **kwargs):
-        self.parent = parent
+    def __init__(self, master=None, with_logo=True, *args, **kwargs):
+        if master is None:
+            master = chimera.tkgui.app
         self.with_logo = with_logo
         # Fire up
         if not chimera.nogui:  # avoid useless errors during development
             chimera.extension.manager.registerInstance(self)
-        ModelessDialog.__init__(self, *args, **kwargs)
+        super(PlumeBaseDialog, self).__init__(master=master, *args, **kwargs)
         # Fix styles
         self._fix_styles(*self.buttonWidgets.values())
         self._hidden_files_fix()
