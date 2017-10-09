@@ -8,8 +8,9 @@ import Tkinter as tk
 import Tix
 import webbrowser as web
 import json
-from urllib2 import urlopen, HTTPError
+from urllib2 import urlopen, HTTPError, URLError
 from distutils.version import LooseVersion
+from threading import Thread
 # Chimera
 import Pmw
 import chimera
@@ -122,7 +123,10 @@ class PlumeBaseDialog(ModelessDialog):
         self._fix_styles(*self.buttonWidgets.values())
         self._hidden_files_fix()
         if check_version and None not in (self.VERSION, self.VERSION_URL):
-            self.uiMaster().after(1000, self.check_version())
+            thread = Thread(target=self.check_version)
+            thread.start()
+            while thread.isAlive():
+                chimera.tkgui.app.update()
     
     def _initialPositionCheck(self, *args):
         try:
@@ -249,7 +253,7 @@ class PlumeBaseDialog(ModelessDialog):
         """
         try:
             response = urlopen(self.VERSION_URL)
-        except HTTPError as e:
+        except (HTTPError, URLError) as e:
             print('! Could not obtain version info from', self.version_url)
             print('  Reason:', str(e))
         else:
