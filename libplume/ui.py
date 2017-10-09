@@ -106,11 +106,11 @@ class PlumeBaseDialog(ModelessDialog):
     provideStatus = True
     statusPosition = 'left'
     help = 'https://www.insilichem.com'
-    version = None
-    version_url = None
+    VERSION = None
+    VERSION_URL = None
     overMaster = True
     
-    def __init__(self, master=None, with_logo=True, *args, **kwargs):
+    def __init__(self, master=None, with_logo=True, check_version=True, *args, **kwargs):
         if master is None:
             master = chimera.tkgui.app
         self.with_logo = with_logo
@@ -121,8 +121,8 @@ class PlumeBaseDialog(ModelessDialog):
         # Fix styles
         self._fix_styles(*self.buttonWidgets.values())
         self._hidden_files_fix()
-        if None not in (self.version, self.version_url):
-            self.check_version()
+        if check_version and None not in (self.VERSION, self.VERSION_URL):
+            self.uiMaster().after(1000, self.check_version())
     
     def _initialPositionCheck(self, *args):
         try:
@@ -242,17 +242,23 @@ class PlumeBaseDialog(ModelessDialog):
             self._fix_styles(widget)
 
     def check_version(self):
+        """
+        Loads a webpage that returns JSON content with 'tag_name' entry,
+        as in https://api.github.com/repos/{owner}/{repo}/releases/latest,
+        and compares the latest tag with the current version.
+        """
         try:
-            response = urlopen(self.version_url)
+            response = urlopen(self.VERSION_URL)
         except HTTPError as e:
             print('! Could not obtain version info from', self.version_url)
             print('  Reason:', str(e))
         else:
             content = json.loads(response.read())
             latest_version = content['tag_name']
-            if LooseVersion(latest_version[1:]) > LooseVersion(self.version[1:]):
-                msg = 'New version {} available!You are using version {}'
-                self.status(msg.format(latest_version, self.version))
+            if LooseVersion(latest_version[1:]) > LooseVersion(self.VERSION):
+                msg = 'New version {} available! You are using version v{}'
+                self.status(msg.format(latest_version, self.VERSION), color='blue',
+                            blankAfter=5)
 
     @staticmethod
     def _hidden_files_fix():
