@@ -115,6 +115,7 @@ class PlumeBaseDialog(ModelessDialog):
         if master is None:
             master = chimera.tkgui.app
         self.with_logo = with_logo
+        self.ui_labels = {}
         # Fire up
         if not chimera.nogui:  # avoid useless errors during development
             chimera.extension.manager.registerInstance(self)
