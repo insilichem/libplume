@@ -111,10 +111,12 @@ class PlumeBaseDialog(ModelessDialog):
     VERSION_URL = None
     overMaster = True
     
-    def __init__(self, master=None, with_logo=True, check_version=True, *args, **kwargs):
+    def __init__(self, master=None, with_logo=True, check_version=True, 
+                 callback=None, *args, **kwargs):
         if master is None:
             master = chimera.tkgui.app
         self.with_logo = with_logo
+        self.callback = callback
         self.ui_labels = {}
         # Fire up
         if not chimera.nogui:  # avoid useless errors during development
@@ -184,6 +186,8 @@ class PlumeBaseDialog(ModelessDialog):
     
     def Close(self):
         chimera.extension.manager.deregisterInstance(self)
+        if callable(self.callback):
+            self.callback()
         ModelessDialog.Close(self)
     Quit = Close
 
