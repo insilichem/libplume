@@ -17,7 +17,7 @@ import chimera
 from chimera.baseDialog import ModelessDialog
 from chimera.widgets import MoleculeScrolledListBox
 
-# Fix strange bug that can happen 
+# Fix strange bug that can happen
 # with newly created conda environments
 Tix._default_root = tk._default_root
 
@@ -102,7 +102,7 @@ STYLES = {
 
 
 class PlumeBaseDialog(ModelessDialog):
-    
+
     default = None
     provideStatus = True
     statusPosition = 'left'
@@ -110,8 +110,8 @@ class PlumeBaseDialog(ModelessDialog):
     VERSION = None
     VERSION_URL = None
     overMaster = True
-    
-    def __init__(self, master=None, with_logo=True, check_version=True, 
+
+    def __init__(self, master=None, with_logo=True, check_version=True,
                  callback=None, *args, **kwargs):
         if master is None:
             master = chimera.tkgui.app
@@ -130,7 +130,7 @@ class PlumeBaseDialog(ModelessDialog):
             thread.start()
             while thread.isAlive():
                 chimera.tkgui.app.update()
-    
+
     def _initialPositionCheck(self, *args):
         try:
             ModelessDialog._initialPositionCheck(self, *args)
@@ -166,7 +166,7 @@ class PlumeBaseDialog(ModelessDialog):
         logo.grid(row=5, column=0, sticky='we', padx=5, pady=3)
         text.grid(row=5, column=1, sticky='we', padx=5, pady=3)
         return parent
-    
+
     def fillInUI(self, parent):
         # Create main window
         parent.pack(expand=True, fill='both')
@@ -183,7 +183,7 @@ class PlumeBaseDialog(ModelessDialog):
 
     def fill_in_ui(self, canvas):
         raise NotImplementedError
-    
+
     def Close(self):
         chimera.extension.manager.deregisterInstance(self)
         if callable(self.callback):
@@ -202,12 +202,12 @@ class PlumeBaseDialog(ModelessDialog):
         grid : list of list of tk.Widget
             A row x columns matrix of widgets. It is built on lists.
             Each list in the toplevel list represents a row. Each row
-            contains widgets, tuples or strings, in column order.  
+            contains widgets, tuples or strings, in column order.
             If it's a widget, it will be grid at the row i (index of first level
             list) and column j (index of second level list).
             If a tuple of widgets is found instead of a naked widget,
             they will be packed in a frame, and grid'ed as a single cell.
-            If it's a string, a Label will be created with that text, and grid'ed. 
+            If it's a string, a Label will be created with that text, and grid'ed.
 
             For example:
             >>> grid = [['A custom label', widget_0_1, widget_0_2], # first row
@@ -231,7 +231,7 @@ class PlumeBaseDialog(ModelessDialog):
                 elif isinstance(item, basestring):
                     sticky = 'e'
                     label = self.ui_labels[item] = tk.Label(parent, text=item + label_sep if item else '')
-                    item = label 
+                    item = label
                 elif isinstance(item, tk.Checkbutton):
                     sticky = 'w'
                 if 'sticky' not in kwargs:
@@ -273,7 +273,7 @@ class PlumeBaseDialog(ModelessDialog):
     def _hidden_files_fix():
         """
         Call a dummy dialog with an impossible option to initialize the file
-        dialog without really getting a dialog window; then set the magic 
+        dialog without really getting a dialog window; then set the magic
         variables accordingly
         """
         call = chimera.tkgui.app._root().call
