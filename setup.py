@@ -22,7 +22,7 @@ long_description = read('README.md')
 setup(
     name='libplume',
     version='0.0.1',
-    url='https://github.com/insilichem',
+    url='https://github.com/insilichem/libplume',
     author='Jaime Rodríguez-Guerra',
     author_email='jaime.rogue@gmail.com',
     description=long_description,
