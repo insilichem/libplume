@@ -259,11 +259,15 @@ class PlumeBaseDialog(ModelessDialog):
         try:
             response = urlopen(self.VERSION_URL)
         except (HTTPError, URLError) as e:
-            print('! Could not obtain version info from', self.version_url)
+            print('! Could not obtain version info from', self.VERSION_URL)
             print('  Reason:', str(e))
         else:
             content = json.loads(response.read())
-            latest_version = content['tag_name']
+            try:
+                latest_version = content['tag_name']
+            except KeyError:
+                print('! Package contains no release info at', self.VERSION_URL)
+                return
             if LooseVersion(latest_version[1:]) > LooseVersion(self.VERSION):
                 msg = 'New version {} available! You are using version v{}'
                 self.status(msg.format(latest_version, self.VERSION), color='blue',
