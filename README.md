@@ -1,3 +1,3 @@
-# libplume
+# libtangram
 
-Common code for Plume Extensions.
+Common code for Tangram Extensions.

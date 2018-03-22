@@ -20,9 +20,9 @@ def read(*filenames, **kwargs):
 long_description = read('README.md')
 
 setup(
-    name='libplume',
+    name='libtangram',
     version='0.0.1',
-    url='https://github.com/insilichem/libplume',
+    url='https://github.com/insilichem/libtangram',
     author='Jaime Rodríguez-Guerra',
     author_email='jaime.rogue@gmail.com',
     description=long_description,
