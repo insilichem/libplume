@@ -1,0 +1,35 @@
+{% set name = "libtangram" %}
+
+
+package:
+  name: {{ name|lower }}
+  version: {{ environ.get('GIT_DESCRIBE_TAG', 'v')[1:] }}
+
+source:
+  url: ../
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
+
+requirements:
+  host:
+    - python
+  run:
+    - python
+    - pychimera     >=0.2.6
+    - tk
+
+about:
+  home: http://github.com/insilichem/libtangram
+  license: MIT
+  license_family: MIT
+
+  summary: 'Common code for all Tangram extensions'
+
+  description: |
+    Common code for all Tangram extensions.
+  doc_url: http://tangram-suite.readthedocs.io
+  dev_url: https://github.com/insilichem/libtangram
+
+
